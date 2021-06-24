@@ -1,0 +1,19 @@
+module Main where
+
+import UserAdmin
+
+import Daml.Script
+
+setup : Script ()
+setup = script do
+  alice <- allocateParty "Alice"
+  userAdmin <- allocateParty "UserAdmin"
+
+  submit alice do
+    createCmd Issuer
+      with
+        userAdmin = userAdmin
+        issuer = alice
+
+
+  return ()
